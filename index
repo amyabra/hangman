@@ -1,0 +1,52 @@
+print("Welcome to Hangman")
+print("Rules: You have to guess letters until you have the guessed all correct")
+print("Also you can only use lowercase letter with only 7 tries")
+from random import*
+Pokemon=["ash ketchem","pikachu","gotta catch them all","haunter", "to be the best","professor oak",
+         "water","fire","grass","always three starters"]
+random_phrase=Pokemon[randint(0,len(Pokemon)-1)]#picks random phrase from list
+
+random_phrase2=list(random_phrase)#list for random_phrase
+
+abc="abcdefghijklmnopqrstuvwxyz" #creates the underscores
+abc=list(abc)
+other_list=list(random_phrase2)
+for i in abc:
+    for j in range(len(random_phrase)):
+        if(i==other_list[j]):
+            other_list[j]="_"
+under_score="".join(other_list) #underscore
+print(under_score)
+not_it=[]
+tries=0
+sum=True
+while(sum==True):
+    if(tries<6):
+        n=False
+        under_score=list(under_score)
+        letter_guess=str(0)
+        while(str.isalpha(letter_guess)==False):
+            letter_guess=input("Please enter a letter(Pokemon)") #asks user for a letter
+
+        for i in range(len(random_phrase2)): #changes the undercores to letters
+            if(letter_guess==random_phrase2[i]):
+                under_score[i]=letter_guess
+                n=True
+
+        if(n==False): #adds to the count of tries they had if the letter is wrong
+            tries+=1
+
+        not_it.append(letter_guess)#adds the already used letters to a list
+
+
+        if(under_score==random_phrase2):#tells if they got all the letters are correct already
+            print("Congradulations!! You have guessed the word/words")
+            sum=False
+        else: #if they are not correct yet they will have to repeat the process
+            sum=True
+            print("You now have",7-tries," tries of guessing wrong left.","The letters used were",not_it)
+        under_score="".join(under_score)
+        print(under_score)
+    else: #tells them the word if they run out of tries
+        print("Sorry you ran out of tries the letters were",random_phrase)
+        sum=False
